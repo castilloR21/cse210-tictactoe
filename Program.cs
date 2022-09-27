@@ -32,7 +32,11 @@
     /// <param name="board">The board</param>
     static void DisplayBoard(List<string> board)
     {
-
+        Console.WriteLine($"{board[0]}|{board[1]}|{board[2]}");
+        Console.WriteLine("-+-+-");
+        Console.WriteLine($"{board[3]}|{board[4]}|{board[5]}");
+        Console.WriteLine("-+-+-");
+        Console.WriteLine($"{board[6]}|{board[7]}|{board[8]}");
     }
 
     /// <summary>
@@ -42,7 +46,12 @@
     /// <returns>True if the game is over</returns>
     static bool IsGameOver(List<string> board)
     {
-        return false;
+        if(IsWinner(board,"x") || IsWinner(board, "o") || IsTie(board)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /// <summary>Determines if the provided player has a tic tac toe.</summary>
@@ -51,6 +60,16 @@
     /// <returns></returns>
     static bool IsWinner(List<string> board, string player)
     {
+        if (board[0] == player && board[1] == player && board[2] == player){
+            return true;
+        }
+
+        if (board[3] == player && board[4] == player && board[5] == player){
+            return true;
+        }
+        if (board[2] == player && board[4] == player && board[6] == player){
+            return true;
+        }
         return false;
     }
 
@@ -67,7 +86,13 @@
     /// <returns>The next players sign (x or o)</returns>
     static string GetNextPlayer(string currentPlayer)
     {
-        return "x";
+        if (currentPlayer == "x")
+        {
+            return "o";        
+        } else {
+            return "x";
+        }
+        
     }
 
     /// <summary>Gets the 1-based spot number associated with the user's choice.</summary>
