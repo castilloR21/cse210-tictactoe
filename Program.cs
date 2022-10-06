@@ -3,7 +3,7 @@
     static void Main(string[] args)
     {
 
-        List<string> board = GetNewBoard();
+        Board board = new Board();
         string currentPlayer = "x";
 
         while (!IsGameOver(board))
@@ -22,11 +22,7 @@
 
     /// <summary>Gets a new instance of the board with the numbers 1-9 in place. </summary>
     /// <returns>A list of 9 strings representing each square.</returns>
-    static List<string> GetNewBoard()
-    {
-      string[] numbers = {"1", "2", "3", "4", "5"};
-      return new List<string>(numbers);
-    }
+    
 
     /// <summary>Displays the board in a 3x3 grid.</summary>
     /// <param name="board">The board</param>
@@ -60,25 +56,30 @@
     /// <returns></returns>
     static bool IsWinner(List<string> board, string player)
     {
-        if (board[0] == player && board[1] == player && board[2] == player){
-            return true;
+        bool isWinner = false;
+
+        if ((board[0] == player && board[1] == player && board[2] == player)
+            || (board[3] == player && board[4] == player && board[5] == player)
+            || (board[6] == player && board[7] == player && board[8] == player)
+            || (board[0] == player && board[3] == player && board[6] == player)
+            || (board[1] == player && board[4] == player && board[7] == player)
+            || (board[2] == player && board[5] == player && board[8] == player)
+            || (board[0] == player && board[4] == player && board[8] == player)
+            || (board[2] == player && board[4] == player && board[6] == player)
+            )
+        {
+            isWinner = true;
         }
 
-        if (board[3] == player && board[4] == player && board[5] == player){
-            return true;
-        }
-        if (board[2] == player && board[4] == player && board[6] == player){
-            return true;
-        }
-        return false;
+        return isWinner; 
     }
 
     /// <summary>Determines if the board is full with no more moves possible.</summary>
     /// <param name="board">The current board.</param>
     /// <returns>True if the board is full.</returns>
-    static bool IsTie(List<string> board)
+    static bool IsTie(Board board)
     {
-        return false;
+        return board.ContainsUnclaimedSpaces();
     }
 
     /// <summary>Cycles through the players (from x to o and o to x)</summary>
