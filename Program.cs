@@ -1,28 +1,35 @@
 ﻿class TicTacToe
-{
-    static void Main(string[] args)
-    {
-
-        Board board = new Board();
-        string currentPlayer = "x";
-
-        while (!IsGameOver(board))
+{ static void Main(string[] args)
         {
+            List<string> board = GetNewBoard();
+            string currentPlayer = "x";
+
+            while (!IsGameOver(board))
+            {
+                DisplayBoard(board);
+
+                int choice = GetMoveChoice(currentPlayer);
+                MakeMove(board, choice, currentPlayer);
+
+                currentPlayer = GetNextPlayer(currentPlayer);
+            }
+
             DisplayBoard(board);
-
-            int choice = GetMoveChoice(currentPlayer);
-            MakeMove(board, choice, currentPlayer);
-
-            currentPlayer = GetNextPlayer(currentPlayer);
-        }
-
-        DisplayBoard(board);
-        Console.WriteLine("Good game. Thanks for playing!");
-    }
+            Console.WriteLine("Good game. Thanks for playing!");
 
     /// <summary>Gets a new instance of the board with the numbers 1-9 in place. </summary>
     /// <returns>A list of 9 strings representing each square.</returns>
-    
+    static List<string> GetNewBoard()
+        {
+            List<string> board = new List<string>();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                board.Add(i.ToString());
+            }
+
+            return board;
+        }
 
     /// <summary>Displays the board in a 3x3 grid.</summary>
     /// <param name="board">The board</param>
